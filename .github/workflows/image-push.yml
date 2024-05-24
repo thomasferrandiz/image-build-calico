@@ -5,6 +5,9 @@ on:
 permissions:
   contents: read  
 
+env:
+  REGISTRY_IMAGE: thomasferrandiz/hardened-calico
+
 jobs:
   push-multiarch:
     permissions:
@@ -55,7 +58,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: thomasferrandiz/hardened-calico:${{ github.event.release.tag_name }}
+        tags: ${{ env.REGISTRY_IMAGE }}:${{ github.event.release.tag_name }}
         file: Dockerfile
         platforms: ${{ matrix.platform }}
         outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
